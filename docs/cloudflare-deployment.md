@@ -24,6 +24,16 @@ The repository includes `.github/workflows/deploy-pages.yml`. Configure these Gi
 
 The workflow runs on pushes to `master` that change `frontend/` and uses `npm install` followed by `npm run build`. Commit a generated `package-lock.json` later if reproducible dependency locking is required.
 
+## Workers Builds configuration
+
+If the Cloudflare project is configured as a Worker with `npx wrangler deploy`, use these settings:
+
+- Root directory: repository root
+- Build command: `cd frontend && npm install && npm run build`
+- Deploy command: `npx wrangler deploy`
+
+The root `wrangler.jsonc` points static assets to `frontend/dist`. Do not set the assets directory to `frontend`, because that uploads uncompiled `.vue` and `.ts` source files.
+
 ## Production environment variables
 
 ```text
