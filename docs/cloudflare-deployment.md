@@ -47,3 +47,32 @@ CORS_ORIGINS=https://app.example.com
 ```
 
 The application keeps the MQTT, database, and frontend contracts unchanged across local and production deployments.
+
+## Free Cloudflare-native backend
+
+The repository also contains `cloudflare/worker/`, a Cloudflare Workers + D1 implementation for the no-server prototype. It replaces the always-on FastAPI/MySQL/Mosquitto runtime only for the free deployment profile:
+
+- Worker handles the API.
+- D1 stores telemetry, alarms, predictions, machines, and control logs.
+- A 30-second Cron Trigger generates deterministic `MOCK/simulated` telemetry.
+- The Worker keeps the same `/api/...` HTTP contract and logical MQTT topic names.
+- A future real MQTT bridge can call `/api/internal/telemetry` without changing business concepts.
+
+### First-time setup
+
+From `cloudflare/worker`:
+
+```bash
+npm install
+npx wrangler login
+npx wrangler d1 create aquaculture-db
+```
+
+Copy the returned database ID into `cloudflare/worker/wrangler.jsonc`, replacing `REPLACE_WITH_D1_DATABASE_ID`, then run:
+
+```bash
+npx wrangler d1 migrations apply aquaculture-db --remote
+npx wrangler deploy
+```
+
+The Worker deployment workflow requires the same `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` GitHub secrets used by Pages. Set the frontend variable `VITE_API_BASE_URL` to the deployed Worker URL, then redeploy Pages.
