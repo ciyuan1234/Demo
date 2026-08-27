@@ -54,7 +54,7 @@ The repository also contains `cloudflare/worker/`, a Cloudflare Workers + D1 imp
 
 - Worker handles the API.
 - D1 stores telemetry, alarms, predictions, machines, and control logs.
-- A 30-second Cron Trigger generates deterministic `MOCK/simulated` telemetry.
+- A one-minute Cron Trigger generates deterministic `MOCK/simulated` telemetry (Cloudflare Cron expressions are minute-based).
 - The Worker keeps the same `/api/...` HTTP contract and logical MQTT topic names.
 - A future real MQTT bridge can call `/api/internal/telemetry` without changing business concepts.
 
