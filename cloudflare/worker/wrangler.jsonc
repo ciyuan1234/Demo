@@ -5,6 +5,14 @@
   "compatibility_date": "2026-08-27",
   "compatibility_flags": ["nodejs_compat"],
   "observability": { "enabled": true },
+  "vars": {
+    "DO_CRITICAL_THRESHOLD": "3.0",
+    "DO_WARNING_THRESHOLD": "4.0",
+    "DO_START_THRESHOLD": "3.0",
+    "DO_STOP_THRESHOLD": "5.0",
+    "MINIMUM_RUNTIME_SECONDS": "300",
+    "MINIMUM_STOP_TIME_SECONDS": "60"
+  },
   "triggers": { "crons": ["* * * * *"] },
   "d1_databases": [
     {
