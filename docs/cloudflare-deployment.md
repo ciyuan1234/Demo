@@ -60,7 +60,7 @@ The repository also contains `cloudflare/worker/`, a Cloudflare Workers + D1 imp
 
 ### First-time setup
 
-From `cloudflare/worker`:
+From `cloudflare/worker` (optional local deployment path):
 
 ```bash
 npm install
@@ -68,7 +68,9 @@ npx wrangler login
 npx wrangler d1 create aquaculture-db
 ```
 
-Copy the returned database ID into `cloudflare/worker/wrangler.jsonc`, replacing `REPLACE_WITH_D1_DATABASE_ID`, then run:
+The GitHub Actions workflow can automatically provision the D1 resource because the configuration intentionally omits `database_id`. If you deploy locally, you may create the database manually and add the returned ID to `cloudflare/worker/wrangler.jsonc`, or let `wrangler deploy` provision it for the account.
+
+For a local manual migration, run:
 
 ```bash
 npx wrangler d1 migrations apply aquaculture-db --remote
