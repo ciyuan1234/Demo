@@ -22,7 +22,7 @@ The repository includes `.github/workflows/deploy-pages.yml`. Configure these Gi
 - Variable `CLOUDFLARE_PAGES_PROJECT`: Pages project name.
 - Variable `VITE_API_BASE_URL`: public API origin, for example `https://api.example.com`.
 
-The workflow runs on pushes to `master` that change `frontend/` and uses `npm install` followed by `npm run build`. Commit a generated `package-lock.json` later if reproducible dependency locking is required.
+The workflow runs on pushes to `master` that change `frontend/` and uses `npm install` followed by `npm run build`.
 
 ## Workers Builds configuration
 
