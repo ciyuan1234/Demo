@@ -7,6 +7,7 @@ import time
 
 import paho.mqtt.client as mqtt
 
+from ..core.config import settings
 from ..db import SessionLocal
 from ..schemas import TelemetryMessage
 from ..services.telemetry import ingest_telemetry
@@ -19,6 +20,10 @@ class MosquittoTelemetrySubscriber:
         self.host = os.getenv("MQTT_HOST", "mosquitto")
         self.port = int(os.getenv("MQTT_PORT", "1883"))
         self.client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+        if settings.mqtt_username:
+            self.client.username_pw_set(settings.mqtt_username, settings.mqtt_password)
+        if settings.mqtt_tls:
+            self.client.tls_set()
         self.client.on_connect = self._on_connect
         self.client.on_message = self._on_message
 
@@ -50,4 +55,3 @@ class MosquittoTelemetrySubscriber:
 
     def publish(self, topic: str, payload: dict) -> None:
         self.client.publish(topic, json.dumps(payload), qos=1)
-

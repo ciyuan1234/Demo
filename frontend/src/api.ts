@@ -2,9 +2,10 @@ export interface Device { device_id: string; pond_id: string; mode: string; stat
 export interface WaterQuality { timestamp: number; temperature: number; ph: number; do: number; turbidity: number; data_source: string; mode: string }
 export interface Alarm { level: string; message: string; pond_id: string; created_at: string; acknowledged: boolean }
 export interface Oxygen { machine_id: string; status: string; mode: string }
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? ''
 
 async function request<T>(url: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(url, { headers: { 'Content-Type': 'application/json' }, ...init })
+  const response = await fetch(`${API_BASE_URL}${url}`, { headers: { 'Content-Type': 'application/json' }, ...init })
   if (!response.ok) throw new Error(`${response.status} ${response.statusText}`)
   return response.json() as Promise<T>
 }

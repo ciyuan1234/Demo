@@ -27,6 +27,7 @@ services:
       DATABASE_URL: mysql+pymysql://aquaculture:aquaculture@mysql:3306/aquaculture
       MQTT_HOST: mosquitto
       MQTT_PORT: 1883
+      CORS_ORIGINS: http://localhost:8080
     ports:
       - "8000:8000"
     depends_on:
