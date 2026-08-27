@@ -3,8 +3,8 @@ __pycache__/
 .pytest_cache/
 frontend/node_modules/
 frontend/dist/
+cloudflare/worker/node_modules/
 remote_demo/
 .env
 .venv/
 venv/
-
