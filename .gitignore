@@ -5,6 +5,7 @@ frontend/node_modules/
 frontend/dist/
 cloudflare/worker/node_modules/
 cloudflare/worker/.wrangler/
+cloudflare/worker/.wrangler.deploy.jsonc
 remote_demo/
 .env
 .venv/
