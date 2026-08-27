@@ -1,0 +1,57 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: aquaculture
+      MYSQL_USER: aquaculture
+      MYSQL_PASSWORD: aquaculture
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uaquaculture", "-paquaculture"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: mysql+pymysql://aquaculture:aquaculture@mysql:3306/aquaculture
+      MQTT_HOST: mosquitto
+      MQTT_PORT: 1883
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      mosquitto:
+        condition: service_started
+
+  simulator:
+    build:
+      context: .
+      dockerfile: simulator/Dockerfile
+    environment:
+      MQTT_HOST: mosquitto
+      MQTT_PORT: 1883
+      SIMULATOR_INTERVAL: 5
+    depends_on:
+      - mosquitto
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:

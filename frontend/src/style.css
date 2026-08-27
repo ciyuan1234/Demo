@@ -1,0 +1,14 @@
+:root { font-family: Inter, system-ui, sans-serif; color: #17324d; background: #f4f8fb; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.shell { max-width: 1440px; margin: auto; padding: 30px 38px 50px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.eyebrow { margin: 0 0 5px; color: #2e9c93; font-size: 12px; letter-spacing: .16em; font-weight: 700; }
+h1 { margin: 0; font-size: 30px; letter-spacing: -.03em; }
+.toolbar { display: flex; align-items: center; gap: 12px; }
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 20px 0; }
+.metric-card span { color: #70859a; font-size: 14px; }.metric-card strong { display: block; margin-top: 14px; font-size: 29px; }
+.grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+.card-title { display: flex; justify-content: space-between; align-items: center; font-weight: 700; }.card-title small { color: #8b9cac; font-weight: 400; }
+.chart { height: 360px; }.risk-panel { padding: 14px 4px; }.risk-number { color: #d76b4e; font-size: 44px; font-weight: 700; }.risk-number small { color: #8b9cac; font-size: 15px; font-weight: 400; }.risk-panel p { color: #71869a; margin: 4px 0 25px; }.device-row { display: flex; justify-content: space-between; border-top: 1px solid #edf1f5; padding: 14px 0; }.actions { display: flex; gap: 10px; margin: 22px 0 16px; }
+@media (max-width: 900px) { .shell { padding: 20px; }.cards { grid-template-columns: repeat(2, 1fr); }.grid { grid-template-columns: 1fr; }.topbar { align-items: flex-start; gap: 15px; flex-direction: column; } }
